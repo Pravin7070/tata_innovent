@@ -1,0 +1,10 @@
+frame_id,timestamp,command,status
+221,22.0,Change Drive Mode to Offroad,Executed
+221,22.0,Raise Ride Height to High,Executed
+241,24.0,Apply Active Suspension Damping,Executed
+281,28.0,Apply Active Suspension Damping,Executed
+401,40.0,Raise Ride Height to Extra High,Executed
+401,40.0,Apply Active Suspension Damping,Executed
+441,44.0,Apply Active Suspension Damping,Executed
+461,46.0,Change Drive Mode to Comfort,Executed
+461,46.0,Lower Ride Height to Normal,Executed

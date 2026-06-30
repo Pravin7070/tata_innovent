@@ -1,0 +1,118 @@
+{
+    "session_metadata": {
+        "session_id": "session_tata_safari_20260630_001",
+        "vehicle_id": "TATA_SAFARI_4XX_092",
+        "start_time": "2026-06-30T23:07:37.122128Z",
+        "end_time": "2026-06-30T23:12:37.122181Z"
+    },
+    "dashboard_summary": {
+        "total_frames": 500,
+        "total_detections": 487,
+        "avg_confidence": 0.859,
+        "avg_severity": 0.386,
+        "most_common_terrain": "Asphalt",
+        "most_used_drive_mode": "Comfort"
+    },
+    "terrain_distribution": [
+        {
+            "terrain_type": "Asphalt",
+            "count": 135,
+            "percentage": 27.72
+        },
+        {
+            "terrain_type": "Gravel",
+            "count": 120,
+            "percentage": 24.64
+        },
+        {
+            "terrain_type": "Mud",
+            "count": 94,
+            "percentage": 19.3
+        },
+        {
+            "terrain_type": "Sand",
+            "count": 79,
+            "percentage": 16.22
+        },
+        {
+            "terrain_type": "Rock",
+            "count": 59,
+            "percentage": 12.11
+        }
+    ],
+    "drive_mode_distribution": [
+        {
+            "drive_mode": "Comfort",
+            "count": 260,
+            "percentage": 52.0
+        },
+        {
+            "drive_mode": "Offroad",
+            "count": 240,
+            "percentage": 48.0
+        }
+    ],
+    "ride_height_distribution": [
+        {
+            "ride_height": "Normal",
+            "count": 260,
+            "percentage": 52.0
+        },
+        {
+            "ride_height": "High",
+            "count": 180,
+            "percentage": 36.0
+        },
+        {
+            "ride_height": "Extra High",
+            "count": 60,
+            "percentage": 12.0
+        }
+    ],
+    "confidence_stats": {
+        "mean": 0.859,
+        "std": 0.098,
+        "min": 0.51,
+        "max": 1.0,
+        "median": 0.86
+    },
+    "severity_stats": {
+        "mean": 0.386,
+        "std": 0.281,
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.36
+    },
+    "command_statistics": [
+        {
+            "command": "Apply Active Suspension Damping",
+            "status": "Executed",
+            "count": 4
+        },
+        {
+            "command": "Change Drive Mode to Comfort",
+            "status": "Executed",
+            "count": 1
+        },
+        {
+            "command": "Change Drive Mode to Offroad",
+            "status": "Executed",
+            "count": 1
+        },
+        {
+            "command": "Lower Ride Height to Normal",
+            "status": "Executed",
+            "count": 1
+        },
+        {
+            "command": "Raise Ride Height to Extra High",
+            "status": "Executed",
+            "count": 1
+        },
+        {
+            "command": "Raise Ride Height to High",
+            "status": "Executed",
+            "count": 1
+        }
+    ]
+}

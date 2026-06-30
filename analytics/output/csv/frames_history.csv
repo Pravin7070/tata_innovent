@@ -1,0 +1,501 @@
+frame_id,timestamp,drive_mode,ride_height
+1,0.0,Comfort,Normal
+2,0.1,Comfort,Normal
+3,0.2,Comfort,Normal
+4,0.3,Comfort,Normal
+5,0.4,Comfort,Normal
+6,0.5,Comfort,Normal
+7,0.6,Comfort,Normal
+8,0.7,Comfort,Normal
+9,0.8,Comfort,Normal
+10,0.9,Comfort,Normal
+11,1.0,Comfort,Normal
+12,1.1,Comfort,Normal
+13,1.2,Comfort,Normal
+14,1.3,Comfort,Normal
+15,1.4,Comfort,Normal
+16,1.5,Comfort,Normal
+17,1.6,Comfort,Normal
+18,1.7,Comfort,Normal
+19,1.8,Comfort,Normal
+20,1.9,Comfort,Normal
+21,2.0,Comfort,Normal
+22,2.1,Comfort,Normal
+23,2.2,Comfort,Normal
+24,2.3,Comfort,Normal
+25,2.4,Comfort,Normal
+26,2.5,Comfort,Normal
+27,2.6,Comfort,Normal
+28,2.7,Comfort,Normal
+29,2.8,Comfort,Normal
+30,2.9,Comfort,Normal
+31,3.0,Comfort,Normal
+32,3.1,Comfort,Normal
+33,3.2,Comfort,Normal
+34,3.3,Comfort,Normal
+35,3.4,Comfort,Normal
+36,3.5,Comfort,Normal
+37,3.6,Comfort,Normal
+38,3.7,Comfort,Normal
+39,3.8,Comfort,Normal
+40,3.9,Comfort,Normal
+41,4.0,Comfort,Normal
+42,4.1,Comfort,Normal
+43,4.2,Comfort,Normal
+44,4.3,Comfort,Normal
+45,4.4,Comfort,Normal
+46,4.5,Comfort,Normal
+47,4.6,Comfort,Normal
+48,4.7,Comfort,Normal
+49,4.8,Comfort,Normal
+50,4.9,Comfort,Normal
+51,5.0,Comfort,Normal
+52,5.1,Comfort,Normal
+53,5.2,Comfort,Normal
+54,5.3,Comfort,Normal
+55,5.4,Comfort,Normal
+56,5.5,Comfort,Normal
+57,5.6,Comfort,Normal
+58,5.7,Comfort,Normal
+59,5.8,Comfort,Normal
+60,5.9,Comfort,Normal
+61,6.0,Comfort,Normal
+62,6.1,Comfort,Normal
+63,6.2,Comfort,Normal
+64,6.3,Comfort,Normal
+65,6.4,Comfort,Normal
+66,6.5,Comfort,Normal
+67,6.6,Comfort,Normal
+68,6.7,Comfort,Normal
+69,6.8,Comfort,Normal
+70,6.9,Comfort,Normal
+71,7.0,Comfort,Normal
+72,7.1,Comfort,Normal
+73,7.2,Comfort,Normal
+74,7.3,Comfort,Normal
+75,7.4,Comfort,Normal
+76,7.5,Comfort,Normal
+77,7.6,Comfort,Normal
+78,7.7,Comfort,Normal
+79,7.8,Comfort,Normal
+80,7.9,Comfort,Normal
+81,8.0,Comfort,Normal
+82,8.1,Comfort,Normal
+83,8.2,Comfort,Normal
+84,8.3,Comfort,Normal
+85,8.4,Comfort,Normal
+86,8.5,Comfort,Normal
+87,8.6,Comfort,Normal
+88,8.7,Comfort,Normal
+89,8.8,Comfort,Normal
+90,8.9,Comfort,Normal
+91,9.0,Comfort,Normal
+92,9.1,Comfort,Normal
+93,9.2,Comfort,Normal
+94,9.3,Comfort,Normal
+95,9.4,Comfort,Normal
+96,9.5,Comfort,Normal
+97,9.6,Comfort,Normal
+98,9.7,Comfort,Normal
+99,9.8,Comfort,Normal
+100,9.9,Comfort,Normal
+101,10.0,Comfort,Normal
+102,10.1,Comfort,Normal
+103,10.2,Comfort,Normal
+104,10.3,Comfort,Normal
+105,10.4,Comfort,Normal
+106,10.5,Comfort,Normal
+107,10.6,Comfort,Normal
+108,10.7,Comfort,Normal
+109,10.8,Comfort,Normal
+110,10.9,Comfort,Normal
+111,11.0,Comfort,Normal
+112,11.1,Comfort,Normal
+113,11.2,Comfort,Normal
+114,11.3,Comfort,Normal
+115,11.4,Comfort,Normal
+116,11.5,Comfort,Normal
+117,11.6,Comfort,Normal
+118,11.7,Comfort,Normal
+119,11.8,Comfort,Normal
+120,11.9,Comfort,Normal
+121,12.0,Comfort,Normal
+122,12.1,Comfort,Normal
+123,12.2,Comfort,Normal
+124,12.3,Comfort,Normal
+125,12.4,Comfort,Normal
+126,12.5,Comfort,Normal
+127,12.6,Comfort,Normal
+128,12.7,Comfort,Normal
+129,12.8,Comfort,Normal
+130,12.9,Comfort,Normal
+131,13.0,Comfort,Normal
+132,13.1,Comfort,Normal
+133,13.2,Comfort,Normal
+134,13.3,Comfort,Normal
+135,13.4,Comfort,Normal
+136,13.5,Comfort,Normal
+137,13.6,Comfort,Normal
+138,13.7,Comfort,Normal
+139,13.8,Comfort,Normal
+140,13.9,Comfort,Normal
+141,14.0,Comfort,Normal
+142,14.1,Comfort,Normal
+143,14.2,Comfort,Normal
+144,14.3,Comfort,Normal
+145,14.4,Comfort,Normal
+146,14.5,Comfort,Normal
+147,14.6,Comfort,Normal
+148,14.7,Comfort,Normal
+149,14.8,Comfort,Normal
+150,14.9,Comfort,Normal
+151,15.0,Comfort,Normal
+152,15.1,Comfort,Normal
+153,15.2,Comfort,Normal
+154,15.3,Comfort,Normal
+155,15.4,Comfort,Normal
+156,15.5,Comfort,Normal
+157,15.6,Comfort,Normal
+158,15.7,Comfort,Normal
+159,15.8,Comfort,Normal
+160,15.9,Comfort,Normal
+161,16.0,Comfort,Normal
+162,16.1,Comfort,Normal
+163,16.2,Comfort,Normal
+164,16.3,Comfort,Normal
+165,16.4,Comfort,Normal
+166,16.5,Comfort,Normal
+167,16.6,Comfort,Normal
+168,16.7,Comfort,Normal
+169,16.8,Comfort,Normal
+170,16.9,Comfort,Normal
+171,17.0,Comfort,Normal
+172,17.1,Comfort,Normal
+173,17.2,Comfort,Normal
+174,17.3,Comfort,Normal
+175,17.4,Comfort,Normal
+176,17.5,Comfort,Normal
+177,17.6,Comfort,Normal
+178,17.7,Comfort,Normal
+179,17.8,Comfort,Normal
+180,17.9,Comfort,Normal
+181,18.0,Comfort,Normal
+182,18.1,Comfort,Normal
+183,18.2,Comfort,Normal
+184,18.3,Comfort,Normal
+185,18.4,Comfort,Normal
+186,18.5,Comfort,Normal
+187,18.6,Comfort,Normal
+188,18.7,Comfort,Normal
+189,18.8,Comfort,Normal
+190,18.9,Comfort,Normal
+191,19.0,Comfort,Normal
+192,19.1,Comfort,Normal
+193,19.2,Comfort,Normal
+194,19.3,Comfort,Normal
+195,19.4,Comfort,Normal
+196,19.5,Comfort,Normal
+197,19.6,Comfort,Normal
+198,19.7,Comfort,Normal
+199,19.8,Comfort,Normal
+200,19.9,Comfort,Normal
+201,20.0,Comfort,Normal
+202,20.1,Comfort,Normal
+203,20.2,Comfort,Normal
+204,20.3,Comfort,Normal
+205,20.4,Comfort,Normal
+206,20.5,Comfort,Normal
+207,20.6,Comfort,Normal
+208,20.7,Comfort,Normal
+209,20.8,Comfort,Normal
+210,20.9,Comfort,Normal
+211,21.0,Comfort,Normal
+212,21.1,Comfort,Normal
+213,21.2,Comfort,Normal
+214,21.3,Comfort,Normal
+215,21.4,Comfort,Normal
+216,21.5,Comfort,Normal
+217,21.6,Comfort,Normal
+218,21.7,Comfort,Normal
+219,21.8,Comfort,Normal
+220,21.9,Comfort,Normal
+221,22.0,Offroad,High
+222,22.1,Offroad,High
+223,22.2,Offroad,High
+224,22.3,Offroad,High
+225,22.4,Offroad,High
+226,22.5,Offroad,High
+227,22.6,Offroad,High
+228,22.7,Offroad,High
+229,22.8,Offroad,High
+230,22.9,Offroad,High
+231,23.0,Offroad,High
+232,23.1,Offroad,High
+233,23.2,Offroad,High
+234,23.3,Offroad,High
+235,23.4,Offroad,High
+236,23.5,Offroad,High
+237,23.6,Offroad,High
+238,23.7,Offroad,High
+239,23.8,Offroad,High
+240,23.9,Offroad,High
+241,24.0,Offroad,High
+242,24.1,Offroad,High
+243,24.2,Offroad,High
+244,24.3,Offroad,High
+245,24.4,Offroad,High
+246,24.5,Offroad,High
+247,24.6,Offroad,High
+248,24.7,Offroad,High
+249,24.8,Offroad,High
+250,24.9,Offroad,High
+251,25.0,Offroad,High
+252,25.1,Offroad,High
+253,25.2,Offroad,High
+254,25.3,Offroad,High
+255,25.4,Offroad,High
+256,25.5,Offroad,High
+257,25.6,Offroad,High
+258,25.7,Offroad,High
+259,25.8,Offroad,High
+260,25.9,Offroad,High
+261,26.0,Offroad,High
+262,26.1,Offroad,High
+263,26.2,Offroad,High
+264,26.3,Offroad,High
+265,26.4,Offroad,High
+266,26.5,Offroad,High
+267,26.6,Offroad,High
+268,26.7,Offroad,High
+269,26.8,Offroad,High
+270,26.9,Offroad,High
+271,27.0,Offroad,High
+272,27.1,Offroad,High
+273,27.2,Offroad,High
+274,27.3,Offroad,High
+275,27.4,Offroad,High
+276,27.5,Offroad,High
+277,27.6,Offroad,High
+278,27.7,Offroad,High
+279,27.8,Offroad,High
+280,27.9,Offroad,High
+281,28.0,Offroad,High
+282,28.1,Offroad,High
+283,28.2,Offroad,High
+284,28.3,Offroad,High
+285,28.4,Offroad,High
+286,28.5,Offroad,High
+287,28.6,Offroad,High
+288,28.7,Offroad,High
+289,28.8,Offroad,High
+290,28.9,Offroad,High
+291,29.0,Offroad,High
+292,29.1,Offroad,High
+293,29.2,Offroad,High
+294,29.3,Offroad,High
+295,29.4,Offroad,High
+296,29.5,Offroad,High
+297,29.6,Offroad,High
+298,29.7,Offroad,High
+299,29.8,Offroad,High
+300,29.9,Offroad,High
+301,30.0,Offroad,High
+302,30.1,Offroad,High
+303,30.2,Offroad,High
+304,30.3,Offroad,High
+305,30.4,Offroad,High
+306,30.5,Offroad,High
+307,30.6,Offroad,High
+308,30.7,Offroad,High
+309,30.8,Offroad,High
+310,30.9,Offroad,High
+311,31.0,Offroad,High
+312,31.1,Offroad,High
+313,31.2,Offroad,High
+314,31.3,Offroad,High
+315,31.4,Offroad,High
+316,31.5,Offroad,High
+317,31.6,Offroad,High
+318,31.7,Offroad,High
+319,31.8,Offroad,High
+320,31.9,Offroad,High
+321,32.0,Offroad,High
+322,32.1,Offroad,High
+323,32.2,Offroad,High
+324,32.3,Offroad,High
+325,32.4,Offroad,High
+326,32.5,Offroad,High
+327,32.6,Offroad,High
+328,32.7,Offroad,High
+329,32.8,Offroad,High
+330,32.9,Offroad,High
+331,33.0,Offroad,High
+332,33.1,Offroad,High
+333,33.2,Offroad,High
+334,33.3,Offroad,High
+335,33.4,Offroad,High
+336,33.5,Offroad,High
+337,33.6,Offroad,High
+338,33.7,Offroad,High
+339,33.8,Offroad,High
+340,33.9,Offroad,High
+341,34.0,Offroad,High
+342,34.1,Offroad,High
+343,34.2,Offroad,High
+344,34.3,Offroad,High
+345,34.4,Offroad,High
+346,34.5,Offroad,High
+347,34.6,Offroad,High
+348,34.7,Offroad,High
+349,34.8,Offroad,High
+350,34.9,Offroad,High
+351,35.0,Offroad,High
+352,35.1,Offroad,High
+353,35.2,Offroad,High
+354,35.3,Offroad,High
+355,35.4,Offroad,High
+356,35.5,Offroad,High
+357,35.6,Offroad,High
+358,35.7,Offroad,High
+359,35.8,Offroad,High
+360,35.9,Offroad,High
+361,36.0,Offroad,High
+362,36.1,Offroad,High
+363,36.2,Offroad,High
+364,36.3,Offroad,High
+365,36.4,Offroad,High
+366,36.5,Offroad,High
+367,36.6,Offroad,High
+368,36.7,Offroad,High
+369,36.8,Offroad,High
+370,36.9,Offroad,High
+371,37.0,Offroad,High
+372,37.1,Offroad,High
+373,37.2,Offroad,High
+374,37.3,Offroad,High
+375,37.4,Offroad,High
+376,37.5,Offroad,High
+377,37.6,Offroad,High
+378,37.7,Offroad,High
+379,37.8,Offroad,High
+380,37.9,Offroad,High
+381,38.0,Offroad,High
+382,38.1,Offroad,High
+383,38.2,Offroad,High
+384,38.3,Offroad,High
+385,38.4,Offroad,High
+386,38.5,Offroad,High
+387,38.6,Offroad,High
+388,38.7,Offroad,High
+389,38.8,Offroad,High
+390,38.9,Offroad,High
+391,39.0,Offroad,High
+392,39.1,Offroad,High
+393,39.2,Offroad,High
+394,39.3,Offroad,High
+395,39.4,Offroad,High
+396,39.5,Offroad,High
+397,39.6,Offroad,High
+398,39.7,Offroad,High
+399,39.8,Offroad,High
+400,39.9,Offroad,High
+401,40.0,Offroad,Extra High
+402,40.1,Offroad,Extra High
+403,40.2,Offroad,Extra High
+404,40.3,Offroad,Extra High
+405,40.4,Offroad,Extra High
+406,40.5,Offroad,Extra High
+407,40.6,Offroad,Extra High
+408,40.7,Offroad,Extra High
+409,40.8,Offroad,Extra High
+410,40.9,Offroad,Extra High
+411,41.0,Offroad,Extra High
+412,41.1,Offroad,Extra High
+413,41.2,Offroad,Extra High
+414,41.3,Offroad,Extra High
+415,41.4,Offroad,Extra High
+416,41.5,Offroad,Extra High
+417,41.6,Offroad,Extra High
+418,41.7,Offroad,Extra High
+419,41.8,Offroad,Extra High
+420,41.9,Offroad,Extra High
+421,42.0,Offroad,Extra High
+422,42.1,Offroad,Extra High
+423,42.2,Offroad,Extra High
+424,42.3,Offroad,Extra High
+425,42.4,Offroad,Extra High
+426,42.5,Offroad,Extra High
+427,42.6,Offroad,Extra High
+428,42.7,Offroad,Extra High
+429,42.8,Offroad,Extra High
+430,42.9,Offroad,Extra High
+431,43.0,Offroad,Extra High
+432,43.1,Offroad,Extra High
+433,43.2,Offroad,Extra High
+434,43.3,Offroad,Extra High
+435,43.4,Offroad,Extra High
+436,43.5,Offroad,Extra High
+437,43.6,Offroad,Extra High
+438,43.7,Offroad,Extra High
+439,43.8,Offroad,Extra High
+440,43.9,Offroad,Extra High
+441,44.0,Offroad,Extra High
+442,44.1,Offroad,Extra High
+443,44.2,Offroad,Extra High
+444,44.3,Offroad,Extra High
+445,44.4,Offroad,Extra High
+446,44.5,Offroad,Extra High
+447,44.6,Offroad,Extra High
+448,44.7,Offroad,Extra High
+449,44.8,Offroad,Extra High
+450,44.9,Offroad,Extra High
+451,45.0,Offroad,Extra High
+452,45.1,Offroad,Extra High
+453,45.2,Offroad,Extra High
+454,45.3,Offroad,Extra High
+455,45.4,Offroad,Extra High
+456,45.5,Offroad,Extra High
+457,45.6,Offroad,Extra High
+458,45.7,Offroad,Extra High
+459,45.8,Offroad,Extra High
+460,45.9,Offroad,Extra High
+461,46.0,Comfort,Normal
+462,46.1,Comfort,Normal
+463,46.2,Comfort,Normal
+464,46.3,Comfort,Normal
+465,46.4,Comfort,Normal
+466,46.5,Comfort,Normal
+467,46.6,Comfort,Normal
+468,46.7,Comfort,Normal
+469,46.8,Comfort,Normal
+470,46.9,Comfort,Normal
+471,47.0,Comfort,Normal
+472,47.1,Comfort,Normal
+473,47.2,Comfort,Normal
+474,47.3,Comfort,Normal
+475,47.4,Comfort,Normal
+476,47.5,Comfort,Normal
+477,47.6,Comfort,Normal
+478,47.7,Comfort,Normal
+479,47.8,Comfort,Normal
+480,47.9,Comfort,Normal
+481,48.0,Comfort,Normal
+482,48.1,Comfort,Normal
+483,48.2,Comfort,Normal
+484,48.3,Comfort,Normal
+485,48.4,Comfort,Normal
+486,48.5,Comfort,Normal
+487,48.6,Comfort,Normal
+488,48.7,Comfort,Normal
+489,48.8,Comfort,Normal
+490,48.9,Comfort,Normal
+491,49.0,Comfort,Normal
+492,49.1,Comfort,Normal
+493,49.2,Comfort,Normal
+494,49.3,Comfort,Normal
+495,49.4,Comfort,Normal
+496,49.5,Comfort,Normal
+497,49.6,Comfort,Normal
+498,49.7,Comfort,Normal
+499,49.8,Comfort,Normal
+500,49.9,Comfort,Normal
