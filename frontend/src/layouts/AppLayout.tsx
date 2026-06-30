@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '../components/layout/Sidebar';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer } from '../components/layout/Footer';
+import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 
 const menuItems = [
   { name: 'Dashboard', path: '/', icon: LayoutDashboard },
@@ -54,7 +55,9 @@ export const AppLayout = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="flex-1 p-4 sm:p-6 lg:p-8"
             >
-              <Outlet />
+              <ErrorBoundary>
+                <Outlet />
+              </ErrorBoundary>
             </motion.div>
           </AnimatePresence>
           <Footer />

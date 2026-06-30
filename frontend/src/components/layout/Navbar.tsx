@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Menu, Bell, User } from 'lucide-react';
 
 export interface NavbarProps {

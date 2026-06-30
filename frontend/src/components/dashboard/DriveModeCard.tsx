@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Settings2, CheckCircle2 } from 'lucide-react';
 import { BaseCard } from '../ui/BaseCard';
 

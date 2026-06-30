@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BaseCard } from '../components/ui/BaseCard';
 import { Car, Battery, Thermometer, Zap } from 'lucide-react';
 

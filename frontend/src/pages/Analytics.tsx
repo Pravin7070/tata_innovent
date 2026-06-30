@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BaseCard } from '../components/ui/BaseCard';
 import { BarChart2, TrendingUp, Clock } from 'lucide-react';
 

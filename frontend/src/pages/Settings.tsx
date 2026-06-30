@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { BaseCard } from '../components/ui/BaseCard';
-import { Settings as SettingsIcon, User, Shield, Radio, Database } from 'lucide-react';
+import { User, Shield, Radio, Database } from 'lucide-react';
 
 export const Settings = () => (
   <div className="flex flex-col gap-6 animate-in fade-in duration-500">

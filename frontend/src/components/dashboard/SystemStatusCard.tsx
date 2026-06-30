@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Wifi } from 'lucide-react';
 import { BaseCard } from '../ui/BaseCard';
 

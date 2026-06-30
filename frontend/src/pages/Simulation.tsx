@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BaseCard } from '../components/ui/BaseCard';
 import { Cpu, Play, Square, RotateCcw, CloudRain } from 'lucide-react';
 

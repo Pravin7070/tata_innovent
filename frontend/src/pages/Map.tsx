@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BaseCard } from '../components/ui/BaseCard';
 import { Map as MapIcon, Navigation2, Compass } from 'lucide-react';
 

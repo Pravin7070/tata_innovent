@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Gauge, Settings2, Battery, Thermometer } from 'lucide-react';
 import { BaseCard } from '../ui/BaseCard';
 

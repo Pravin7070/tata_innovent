@@ -1,4 +1,5 @@
-import React from 'react';
+
+import { motion } from 'framer-motion';
 import { BaseCard } from '../components/ui/BaseCard';
 import { Target, Camera, Activity, Box } from 'lucide-react';
 
@@ -31,7 +32,12 @@ export const Detection = () => (
                   <span className="font-mono text-automotive-white">{item.conf}%</span>
                 </div>
                 <div className="h-1 bg-automotive-black rounded-full overflow-hidden">
-                  <div className={`h-full ${item.color}`} style={{ width: `${item.conf}%` }}></div>
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${item.conf}%` }}
+                    transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.1 }}
+                    className={`h-full ${item.color}`}
+                  />
                 </div>
               </div>
             ))}

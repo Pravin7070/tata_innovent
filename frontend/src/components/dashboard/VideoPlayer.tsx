@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Video, Settings2 } from 'lucide-react';
 import { BaseCard } from '../ui/BaseCard';
 

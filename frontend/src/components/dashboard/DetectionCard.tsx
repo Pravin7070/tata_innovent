@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Mountain } from 'lucide-react';
 import { BaseCard } from '../ui/BaseCard';
 import { motion } from 'framer-motion';
