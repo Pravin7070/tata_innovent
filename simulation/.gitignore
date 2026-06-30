@@ -1,0 +1,98 @@
+# ===========================
+# Node Modules
+# ===========================
+node_modules/
+
+# ===========================
+# Build Output
+# ===========================
+dist/
+build/
+out/
+
+# ===========================
+# Environment Files
+# ===========================
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# IDE
+# ===========================
+.vscode/
+.idea/
+
+# ===========================
+# Cache
+# ===========================
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
+
+# ===========================
+# Three.js / R3F Cache
+# ===========================
+coverage/
+
+# ===========================
+# Temporary Files
+# ===========================
+tmp/
+temp/
+*.tmp
+
+# ===========================
+# Blender Backup Files
+# ===========================
+*.blend1
+*.blend2
+
+# ===========================
+# Auto Generated Models
+# ===========================
+generated/
+exports/
+
+# ===========================
+# Testing
+# ===========================
+playwright-report/
+test-results/
+
+# ===========================
+# Vite
+# ===========================
+.vite/
+
+# ===========================
+# Package Managers
+# ===========================
+.pnp/
+.pnp.js
+
+# ===========================
+# Lock Files (Choose ONE strategy)
+# ===========================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
