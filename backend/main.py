@@ -6,7 +6,7 @@ from app.database.database import Base, engine
 from app.middleware.logging import LoggingMiddleware
 
 # Import routers
-from app.routes import upload, vehicle, detections, history, analytics, simulation, health
+from app.routes import upload, vehicle, detections, history, analytics, simulation, health, dashboard
 from app.websocket import ws
 
 # Create database tables
@@ -36,9 +36,17 @@ app.include_router(history.router)
 app.include_router(analytics.router)
 app.include_router(simulation.router)
 app.include_router(health.router)
+app.include_router(dashboard.router)
 
 # WebSocket Router
 app.include_router(ws.router)
+
+from fastapi.staticfiles import StaticFiles
+import os
+
+# Ensure uploads directory exists
+os.makedirs("uploads", exist_ok=True)
+app.mount("/videos", StaticFiles(directory="uploads"), name="videos")
 
 if __name__ == "__main__":
     import uvicorn
