@@ -31,27 +31,23 @@ export const Detection = () => {
     if (status === 'processing') {
       pollInterval.current = window.setInterval(async () => {
         try {
-          const history = await VideoService.getHistory();
-          const currentVideo = history.find((v: any) => v.id === videoId);
-          if (currentVideo && currentVideo.status === 'completed') {
+          const historyResponse = await VideoService.getHistory();
+          const currentVideo = historyResponse.items?.find((v: any) => v.video_id === videoId);
+          if (currentVideo && currentVideo.result_data?.status === 'success') {
             setStatus('completed');
             if (pollInterval.current) window.clearInterval(pollInterval.current);
             
-            // Fetch actual detections
-            const dets = await VideoService.getDetections();
-            if (dets && dets.length > 0) {
-              const latest = dets[0].result_data;
-              if (latest && latest.video_analysis) {
-                setMetrics(latest.video_analysis);
-                // Group terrains for display
-                const counts = latest.video_analysis.mission_summary?.Statistics?.TerrainDetectionCounts || {};
-                const mappedDets = Object.keys(counts).map(key => ({
-                  obj: key,
-                  count: counts[key],
-                  color: key === 'Gravel' ? 'bg-automotive-blue' : 'bg-automotive-green'
-                }));
-                setDetections(mappedDets);
-              }
+            const latest = currentVideo.result_data;
+            if (latest && latest.video_analysis) {
+              setMetrics(latest.video_analysis);
+              // Group terrains for display
+              const counts = latest.video_analysis.mission_summary?.Statistics?.TerrainDetectionCounts || {};
+              const mappedDets = Object.keys(counts).map(key => ({
+                obj: key,
+                count: counts[key],
+                color: key === 'Gravel' ? 'bg-automotive-blue' : 'bg-automotive-green'
+              }));
+              setDetections(mappedDets);
             }
           }
         } catch (e) {
