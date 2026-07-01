@@ -352,7 +352,7 @@ export const Terrain = ({ terrain, speed }: TerrainProps) => {
           roughness={terrainConfig.roughness}
           metalness={terrainConfig.metalness}
           wireframe={terrainConfig.wireframe}
-          map={terrain === 'Road' ? texture : null} // Only apply road lines on Road
+          map={null} // Removed texture for debugging
           bumpScale={terrainConfig.bumpScale}
         />
       </mesh>

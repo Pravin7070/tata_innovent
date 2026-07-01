@@ -12,6 +12,55 @@ interface RoverProps {
   terrain: string;      // Current terrain type for physics adjustments
 }
 
+// Helper component to render a rugged tire
+const Tire = ({ isRight, speed, glowColor }: { isRight: boolean, speed: string, glowColor: string }) => {
+  // Generate rugged tread blocks procedurally
+  const treads = [];
+  const treadCount = 12;
+  for (let i = 0; i < treadCount; i++) {
+    const angle = (i / treadCount) * Math.PI * 2;
+    treads.push(
+      <mesh 
+        key={i} 
+        position={[0, Math.sin(angle) * 0.45, Math.cos(angle) * 0.45]}
+        rotation={[angle, 0, 0]}
+      >
+        <boxGeometry args={[0.26, 0.06, 0.12]} />
+        <meshStandardMaterial color="#111111" roughness={0.9} />
+      </mesh>
+    );
+  }
+
+  return (
+    <group>
+      {/* Tire Main Cylinder */}
+      <mesh rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.42, 0.42, 0.25, 24]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
+      </mesh>
+
+      {/* Outer Wheel Hub with LEDs */}
+      <mesh position={[isRight ? -0.13 : 0.13, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.24, 0.24, 0.05, 12]} />
+        <meshStandardMaterial color="#2d3748" metalness={0.7} roughness={0.2} />
+      </mesh>
+
+      {/* Emissive Center Cap (Active Drive Indicator) */}
+      <mesh position={[isRight ? -0.16 : 0.16, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.1, 0.1, 0.02, 12]} />
+        <meshStandardMaterial 
+          color="#090d16"
+          emissive={glowColor} 
+          emissiveIntensity={speed === 'Stop' ? 0.3 : 1.5} 
+        />
+      </mesh>
+
+      {/* Rugged Treads */}
+      {treads}
+    </group>
+  );
+};
+
 export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: RoverProps) => {
   // References to animate parts of the rover
   const roverGroupRef = useRef<THREE.Group>(null);
@@ -292,54 +341,7 @@ export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: Rover
     }
   });
 
-  // Helper component to render a rugged tire
-  const Tire = ({ isRight }: { isRight: boolean }) => {
-    // Generate rugged tread blocks procedurally
-    const treads = [];
-    const treadCount = 12;
-    for (let i = 0; i < treadCount; i++) {
-      const angle = (i / treadCount) * Math.PI * 2;
-      treads.push(
-        <mesh 
-          key={i} 
-          position={[0, Math.sin(angle) * 0.45, Math.cos(angle) * 0.45]}
-          rotation={[angle, 0, 0]}
-        >
-          <boxGeometry args={[0.26, 0.06, 0.12]} />
-          <meshStandardMaterial color="#111111" roughness={0.9} />
-        </mesh>
-      );
-    }
 
-    return (
-      <group>
-        {/* Tire Main Cylinder */}
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.42, 0.42, 0.25, 24]} />
-          <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
-        </mesh>
-
-        {/* Outer Wheel Hub with LEDs */}
-        <mesh position={[isRight ? -0.13 : 0.13, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.24, 0.24, 0.05, 12]} />
-          <meshStandardMaterial color="#2d3748" metalness={0.7} roughness={0.2} />
-        </mesh>
-
-        {/* Emissive Center Cap (Active Drive Indicator) */}
-        <mesh position={[isRight ? -0.16 : 0.16, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.1, 0.1, 0.02, 12]} />
-          <meshStandardMaterial 
-            color="#090d16"
-            emissive={getGlowColor()} 
-            emissiveIntensity={speed === 'Stop' ? 0.3 : 1.5} 
-          />
-        </mesh>
-
-        {/* Rugged Treads */}
-        {treads}
-      </group>
-    );
-  };
 
   return (
     <group ref={roverGroupRef} position={[0, 0.45, 0]}>
@@ -348,7 +350,7 @@ export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: Rover
       {/* Front Left Wheel */}
       <group ref={flWheelRef} position={[0.85, 0, 0.9]}>
         <group>
-          <Tire isRight={false} />
+          <Tire isRight={false} speed={speed} glowColor={getGlowColor()} />
         </group>
         <Html position={[0, 0.6, 0]} distanceFactor={6} center>
           <div style={{
@@ -370,7 +372,7 @@ export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: Rover
       {/* Front Right Wheel */}
       <group ref={frWheelRef} position={[-0.85, 0, 0.9]}>
         <group>
-          <Tire isRight={true} />
+          <Tire isRight={true} speed={speed} glowColor={getGlowColor()} />
         </group>
         <Html position={[0, 0.6, 0]} distanceFactor={6} center>
           <div style={{
@@ -392,7 +394,7 @@ export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: Rover
       {/* Rear Left Wheel */}
       <group ref={rlWheelRef} position={[0.85, 0, -0.9]}>
         <group>
-          <Tire isRight={false} />
+          <Tire isRight={false} speed={speed} glowColor={getGlowColor()} />
         </group>
         <Html position={[0, -0.6, 0]} distanceFactor={6} center>
           <div style={{
@@ -414,7 +416,7 @@ export const Rover = ({ driveMode, rideHeight, speed, steering, terrain }: Rover
       {/* Rear Right Wheel */}
       <group ref={rrWheelRef} position={[-0.85, 0, -0.9]}>
         <group>
-          <Tire isRight={true} />
+          <Tire isRight={true} speed={speed} glowColor={getGlowColor()} />
         </group>
         <Html position={[0, -0.6, 0]} distanceFactor={6} center>
           <div style={{

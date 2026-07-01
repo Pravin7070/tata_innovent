@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Environment } from '@react-three/drei';
 import { Physics, RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 
@@ -212,6 +212,10 @@ export default function App() {
 
           {/* Custom Camera handler */}
           <CameraHandler mode={cameraMode} />
+          
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+          </Suspense>
 
         </Canvas>
       </div>
