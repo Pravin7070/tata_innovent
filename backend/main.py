@@ -6,7 +6,7 @@ from app.database.database import Base, engine
 from app.middleware.logging import LoggingMiddleware
 
 # Import routers
-from app.routes import upload, vehicle, detections, history, analytics, simulation, health, dashboard
+from app.routes import upload, vehicle, detections, history, analytics, simulation, health, dashboard, map, settings as settings_route
 from app.websocket import ws
 
 # Create database tables
@@ -37,6 +37,9 @@ app.include_router(analytics.router)
 app.include_router(simulation.router)
 app.include_router(health.router)
 app.include_router(dashboard.router)
+app.include_router(map.router)
+app.include_router(settings_route.router)
+
 
 # WebSocket Router
 app.include_router(ws.router)

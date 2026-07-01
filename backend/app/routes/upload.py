@@ -1,4 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, Depends, BackgroundTasks, HTTPException
+import os
 from sqlalchemy.orm import Session
 from app.database.database import get_db
 from app.models.models import VideoUpload, AnalysisResult
@@ -51,5 +52,5 @@ async def upload_video(
     return UploadResponse(
         message="Video uploaded successfully and is being processed.",
         video_id=new_video.id,
-        filename=new_video.filename
+        filename=os.path.basename(file_path)
     )

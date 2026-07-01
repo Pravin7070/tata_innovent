@@ -18,3 +18,15 @@ async def get_simulation_data():
             "active_agents": 42
         }
     }
+
+@router.post("/simulation/start", tags=["Simulation"])
+async def start_simulation():
+    return {"status": "success", "message": "Simulation started"}
+
+@router.post("/simulation/stop", tags=["Simulation"])
+async def stop_simulation():
+    return {"status": "success", "message": "Simulation stopped"}
+
+@router.post("/simulation/reset", tags=["Simulation"])
+async def reset_simulation():
+    return {"status": "success", "message": "Simulation reset"}
