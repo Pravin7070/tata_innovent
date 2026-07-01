@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { DashboardService } from '../services/api';
 
@@ -13,6 +13,7 @@ import { CommandLog } from '../components/dashboard/CommandLog';
 import { RecentAlertsCard } from '../components/dashboard/RecentAlertsCard';
 import { VehicleCard } from '../components/dashboard/VehicleCard';
 import { SystemStatusCard } from '../components/dashboard/SystemStatusCard';
+import { SimulationCard } from '../components/dashboard/SimulationCard';
 import { Loading } from '../components/ui/Loading';
 
 const containerVariants = {
@@ -32,16 +33,118 @@ export const Dashboard = () => {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
 
+  const [telemetry, setTelemetry] = useState({
+    suspension: 'NORMAL',
+    terrain: 'Smooth',
+    severity: 'Low',
+    driveMode: '4WD'
+  });
+  const wsRef = useRef<WebSocket | null>(null);
+
   useEffect(() => {
     let mounted = true;
     DashboardService.getDashboardData()
       .then(res => {
-        if (mounted) setData(res);
+        if (mounted) {
+          setData(res);
+          // Initialize telemetry with data if needed, or leave defaults
+        }
       })
       .catch(err => {
         if (mounted) setError(err);
       });
     return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    wsRef.current = new WebSocket('ws://localhost:8000/live');
+
+    wsRef.current.onmessage = (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'telemetry') {
+          // Update simulation telemetry
+          setTelemetry(prev => ({
+            ...prev,
+            suspension: msg.suspension || prev.suspension,
+            terrain: msg.terrain || prev.terrain,
+            severity: msg.severity || prev.severity,
+            driveMode: msg.drive_mode || prev.driveMode,
+            animation: msg.animation || 'normal'
+          }));
+
+          // Update main dashboard data dynamically
+          setData((prevData: any) => {
+            if (!prevData) return prevData;
+            
+            // Generate dynamic severity score
+            let score = 2.0;
+            if (msg.severity === 'Medium') score = 5.5;
+            if (msg.severity === 'High') score = 8.5;
+            if (msg.severity === 'Critical') score = 9.8;
+            
+            // Generate command log if suspension or drive mode changed
+            let newCommands = [...prevData.commands];
+            if (msg.suspension !== prevData.suspension.mode) {
+               newCommands.unshift({ id: Date.now(), time: new Date().toLocaleTimeString(), command: `SET_SUSPENSION_${msg.suspension}`, status: "Success" });
+            }
+            if (msg.drive_mode !== prevData.driveMode.currentMode) {
+               newCommands.unshift({ id: Date.now()+1, time: new Date().toLocaleTimeString(), command: `SET_MODE_${msg.drive_mode.replace(/\s+/g, '_')}`, status: "Success" });
+            }
+            
+            // Ensure we only keep latest 5 commands
+            newCommands = newCommands.slice(0, 5);
+
+            // Generate alerts
+            let newAlerts = [...prevData.alerts];
+            if (msg.alert && msg.alert !== 'Clear path') {
+                const type = msg.severity === 'Critical' ? 'Critical' : (msg.severity === 'High' ? 'Warning' : 'Info');
+                newAlerts.unshift({ id: Date.now(), time: new Date().toLocaleTimeString(), type, message: msg.alert });
+                newAlerts = newAlerts.slice(0, 3);
+            } else if (msg.alert === 'Clear path' && newAlerts.length > 0 && newAlerts[0].message !== 'Clear path') {
+                newAlerts.unshift({ id: Date.now(), time: new Date().toLocaleTimeString(), type: 'Info', message: 'Clear path' });
+                newAlerts = newAlerts.slice(0, 3);
+            }
+
+            return {
+              ...prevData,
+              terrain: {
+                ...prevData.terrain,
+                type: msg.terrain,
+                confidence: (msg.confidence * 100).toFixed(0)
+              },
+              severity: {
+                ...prevData.severity,
+                level: msg.severity,
+                score: score
+              },
+              driveMode: {
+                ...prevData.driveMode,
+                currentMode: msg.drive_mode
+              },
+              suspension: {
+                ...prevData.suspension,
+                mode: msg.suspension
+              },
+              vehicleStatus: {
+                ...prevData.vehicleStatus,
+                speed: msg.target_speed || prevData.vehicleStatus.speed
+              },
+              commands: newCommands,
+              alerts: newAlerts
+            };
+          });
+        }
+      } catch (err) {
+        // Not a JSON message
+      }
+    };
+
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+    };
   }, []);
 
   if (error) {
@@ -64,10 +167,9 @@ export const Dashboard = () => {
         </h1>
       </div>
 
-      <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
-        
+      <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 sm:gap-6 mb-4 sm:mb-6">
         {/* Left Column - Video */}
-        <motion.div variants={itemVariants} className="lg:col-span-5 xl:col-span-4 flex flex-col">
+        <motion.div variants={itemVariants} className="flex flex-col">
           <VideoPlayer 
             status={data.video.status}
             resolution={data.video.resolution}
@@ -76,12 +178,35 @@ export const Dashboard = () => {
           />
         </motion.div>
         
-        {/* Center Column - Terrain & Drive */}
+        {/* Right Column - Simulation */}
+        <motion.div variants={itemVariants} className="flex flex-col">
+          <SimulationCard 
+            status="RUNNING"
+            suspension={telemetry.suspension}
+            driveMode={telemetry.driveMode}
+            terrain={telemetry.terrain}
+            severity={telemetry.severity}
+            animation={(telemetry as any).animation || 'normal'}
+          />
+        </motion.div>
+      </motion.div>
+
+      <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+        {/* Col 1 */}
         <motion.div variants={itemVariants} className="lg:col-span-4 flex flex-col gap-4 sm:gap-6">
           <DetectionCard 
             type={data.terrain.type}
             confidence={data.terrain.confidence}
           />
+          <SeverityGauge 
+            level={data.severity.level}
+            score={data.severity.score}
+            maxScore={data.severity.maxScore}
+          />
+        </motion.div>
+
+        {/* Col 2 */}
+        <motion.div variants={itemVariants} className="lg:col-span-4 flex flex-col gap-4 sm:gap-6">
           <DriveModeCard 
             currentMode={data.driveMode.currentMode}
             activeAssist={data.driveMode.activeAssist}
@@ -94,15 +219,10 @@ export const Dashboard = () => {
             mode={data.suspension.mode}
             status={data.suspension.status}
           />
-          <SeverityGauge 
-            level={data.severity.level}
-            score={data.severity.score}
-            maxScore={data.severity.maxScore}
-          />
         </motion.div>
 
-        {/* Right Column - Status & Logs */}
-        <motion.div variants={itemVariants} className="lg:col-span-3 xl:col-span-4 flex flex-col gap-4 sm:gap-6">
+        {/* Col 3 */}
+        <motion.div variants={itemVariants} className="lg:col-span-4 flex flex-col gap-4 sm:gap-6">
           <StatusCard 
             speed={data.vehicleStatus.speed}
             rpm={data.vehicleStatus.rpm}

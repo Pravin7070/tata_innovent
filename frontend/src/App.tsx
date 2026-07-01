@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
 import { Dashboard } from './pages/Dashboard';
-import { Detection } from './pages/Detection';
 import { Vehicle } from './pages/Vehicle';
 import { Analytics } from './pages/Analytics';
 import { Simulation } from './pages/Simulation';
@@ -14,7 +13,6 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/detection" element={<Detection />} />
           <Route path="/vehicle" element={<Vehicle />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/simulation" element={<Simulation />} />

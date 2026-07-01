@@ -10,7 +10,6 @@ import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 
 const menuItems = [
   { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { name: 'Detection', path: '/detection', icon: Target },
   { name: 'Vehicle', path: '/vehicle', icon: Car },
   { name: 'Analytics', path: '/analytics', icon: BarChart2 },
   { name: 'Simulation', path: '/simulation', icon: Cpu },
