@@ -5,8 +5,11 @@ from app.config.settings import settings
 from app.database.database import Base, engine
 from app.middleware.logging import LoggingMiddleware
 
+from edge.manager import edge_manager
+from edge.state_manager import get_status as get_edge_status
+
 # Import routers
-from app.routes import upload, vehicle, detections, history, analytics, simulation, health, dashboard, map, settings as settings_route
+from app.routes import upload, vehicle, detections, history, analytics, simulation, health, dashboard, map, settings as settings_route, status as status_route
 from app.websocket import ws
 
 # Create database tables
@@ -43,12 +46,18 @@ app.include_router(settings_route.router)
 
 # WebSocket Router
 app.include_router(ws.router)
+app.include_router(status_route.router)
 
 from fastapi.staticfiles import StaticFiles
 import os
 
 # Ensure uploads directory exists
 os.makedirs("uploads", exist_ok=True)
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    edge_manager.stop()
+
 app.mount("/videos", StaticFiles(directory="uploads"), name="videos")
 
 if __name__ == "__main__":

@@ -29,17 +29,22 @@ export const DashboardService = {
 };
 
 export const VideoService = {
-  uploadVideo: async (file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await api.post('/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+  startEdgeInference: async (file?: File) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await api.post('/start-inference', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    }
+
+    const response = await api.post('/start-inference');
     return response.data;
   },
-  
+
   getHistory: async () => {
     const response = await api.get('/history');
     return response.data;
@@ -47,6 +52,13 @@ export const VideoService = {
 
   getDetections: async () => {
     const response = await api.get('/detections');
+    return response.data;
+  }
+};
+
+export const StatusService = {
+  getEdgeStatus: async () => {
+    const response = await api.get('/status');
     return response.data;
   }
 };

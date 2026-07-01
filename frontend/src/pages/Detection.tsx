@@ -1,65 +1,67 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { BaseCard } from '../components/ui/BaseCard';
 import { Target, Camera, Activity, Box, Loader2 } from 'lucide-react';
 import { VideoUploader } from '../components/dashboard/VideoUploader';
-import { VideoService } from '../services/api';
+import { VideoService, StatusService } from '../services/api';
 
 export const Detection = () => {
-  const [status, setStatus] = useState<'idle' | 'uploading' | 'processing' | 'completed'>('idle');
-  const [videoUrl, setVideoUrl] = useState<string>('');
+  const [status, setStatus] = useState<'idle' | 'starting' | 'active'>('idle');
   const [detections, setDetections] = useState<any[]>([]);
-  const [metrics, setMetrics] = useState<any>(null);
-  const [videoId, setVideoId] = useState<number | null>(null);
+  const [edgeStatus, setEdgeStatus] = useState<any>(null);
 
   const pollInterval = useRef<number | null>(null);
 
-  const handleUpload = async (file: File) => {
+  const handleStartEdge = async (file: File | null) => {
+    if (!file) {
+      return;
+    }
+
     try {
-      setStatus('uploading');
-      const res = await VideoService.uploadVideo(file);
-      setVideoId(res.video_id);
-      setVideoUrl(`http://localhost:8000/videos/${res.filename}`);
-      setStatus('processing');
+      setStatus('starting');
+      await VideoService.startEdgeInference(file);
+      await refreshStatus();
+      setStatus('active');
     } catch (err) {
       console.error(err);
       setStatus('idle');
     }
   };
 
-  useEffect(() => {
-    if (status === 'processing') {
-      pollInterval.current = window.setInterval(async () => {
-        try {
-          const historyResponse = await VideoService.getHistory();
-          const currentVideo = historyResponse.items?.find((v: any) => v.video_id === videoId);
-          if (currentVideo && currentVideo.result_data?.status === 'success') {
-            setStatus('completed');
-            if (pollInterval.current) window.clearInterval(pollInterval.current);
-            
-            const latest = currentVideo.result_data;
-            if (latest && latest.video_analysis) {
-              setMetrics(latest.video_analysis);
-              // Group terrains for display
-              const counts = latest.video_analysis.mission_summary?.Statistics?.TerrainDetectionCounts || {};
-              const mappedDets = Object.keys(counts).map(key => ({
-                obj: key,
-                count: counts[key],
-                color: key === 'Gravel' ? 'bg-automotive-blue' : 'bg-automotive-green'
-              }));
-              setDetections(mappedDets);
-            }
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }, 2000);
+  const refreshStatus = async () => {
+    try {
+      const data = await StatusService.getEdgeStatus();
+      setEdgeStatus(data);
+    } catch (err) {
+      console.error(err);
     }
+  };
+
+  const refreshDetections = async () => {
+    try {
+      const detectionResponse = await VideoService.getDetections();
+      const payload = detectionResponse?.detections;
+      if (payload) {
+        const items = Array.isArray(payload) ? payload : [payload];
+        setDetections(items);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    refreshStatus();
+    pollInterval.current = window.setInterval(async () => {
+      await refreshStatus();
+      if (status === 'active') {
+        await refreshDetections();
+      }
+    }, 3000);
 
     return () => {
       if (pollInterval.current) window.clearInterval(pollInterval.current);
     };
-  }, [status, videoId]);
+  }, [status]);
 
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
@@ -68,85 +70,84 @@ export const Detection = () => {
           Object <span className="text-automotive-blue">Detection</span>
         </h1>
         <div className="w-64">
-          <VideoUploader onUpload={handleUpload} isUploading={status === 'uploading'} />
+          <VideoUploader onStart={handleStartEdge} isStarting={status === 'starting'} />
         </div>
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <BaseCard title="Live Inference Feed" icon={Camera} className="lg:col-span-2 min-h-[500px]">
           <div className="flex-1 bg-automotive-black rounded border border-automotive-gray/30 relative flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,180,216,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,180,216,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-            
+
             {status === 'idle' && (
               <div className="text-automotive-gray font-mono uppercase tracking-widest animate-pulse flex flex-col items-center">
                 <Target className="w-12 h-12 mb-4 text-automotive-blue opacity-50" />
-                <span>Awaiting Video Stream</span>
+                <span>Awaiting Edge AI Activation</span>
               </div>
             )}
 
-            {(status === 'uploading' || status === 'processing') && (
+            {status === 'starting' && (
               <div className="text-automotive-gray font-mono uppercase tracking-widest flex flex-col items-center z-10">
                 <Loader2 className="w-12 h-12 mb-4 text-automotive-blue animate-spin" />
-                <span>{status === 'uploading' ? 'Uploading Video...' : 'AI Engine Processing...'}</span>
+                <span>Starting Edge AI...</span>
               </div>
             )}
 
-            {status === 'completed' && videoUrl && (
-              <video 
-                src={videoUrl} 
-                controls 
-                autoPlay 
-                loop 
-                className="absolute inset-0 w-full h-full object-contain z-10"
-              />
+            {status === 'active' && (
+              <div className="text-automotive-white font-mono text-xs uppercase tracking-widest text-center">
+                <div className="mb-2">Edge AI is active and running locally.</div>
+                <div>{edgeStatus?.edge_status?.model || edgeStatus?.model || 'YOLOv8n'} | {edgeStatus?.edge_status?.device || edgeStatus?.device || 'CPU'} | {edgeStatus?.edge_status?.deployment || edgeStatus?.deployment || 'EDGE READY'}</div>
+              </div>
             )}
           </div>
         </BaseCard>
+
         <div className="flex flex-col gap-6">
           <BaseCard title="Detected Objects" icon={Box}>
             <div className="flex flex-col gap-3">
-              {status === 'completed' && detections.length > 0 ? (
+              {detections.length > 0 ? (
                 detections.map((item, i) => (
                   <div key={i} className="bg-automotive-black/50 p-3 rounded border border-automotive-gray/20">
-                    <div className="flex justify-between text-xs uppercase tracking-wider mb-2">
-                      <span>{item.obj}</span>
-                      <span className="font-mono text-automotive-white">{item.count} detections</span>
-                    </div>
-                    <div className="h-1 bg-automotive-black rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: '100%' }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.1 }}
-                        className={`h-full ${item.color}`}
-                      />
+                    <div className="text-sm text-automotive-white font-mono break-words">
+                      {typeof item === 'string'
+                        ? item
+                        : item?.terrain || item?.class || item?.name || JSON.stringify(item).slice(0, 120)}
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="text-automotive-gray text-xs uppercase text-center py-4">
-                  {status === 'processing' ? 'Processing...' : 'No detections yet'}
+                  {status === 'active' ? 'Waiting for detections...' : 'No edge inference data yet'}
                 </div>
               )}
             </div>
           </BaseCard>
-          <BaseCard title="Model Metrics" icon={Activity}>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-[10px] text-automotive-gray uppercase mb-1">Total Frames</p>
-                <p className="font-mono text-xl text-automotive-white">{metrics ? metrics.total_frames : '--'}</p>
+
+          <BaseCard title="Edge Status" icon={Activity}>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>Status</span>
+                <span className="font-mono text-automotive-white">{status === 'active' ? 'ACTIVE' : status === 'starting' ? 'STARTING' : 'IDLE'}</span>
               </div>
-              <div>
-                <p className="text-[10px] text-automotive-gray uppercase mb-1">FPS</p>
-                <p className="font-mono text-xl text-automotive-white">{metrics ? metrics.fps.toFixed(1) : '--'}</p>
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>Inference</span>
+                <span className="font-mono text-automotive-white">LOCAL</span>
               </div>
-              <div>
-                <p className="text-[10px] text-automotive-gray uppercase mb-1">Avg Severity</p>
-                <p className="font-mono text-sm text-automotive-white mt-1">
-                  {metrics?.mission_summary?.Statistics ? metrics.mission_summary.Statistics.OverallAverageSeverity.toFixed(2) : '--'}
-                </p>
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>Model</span>
+                <span className="font-mono text-automotive-white">{edgeStatus?.edge_status?.model || edgeStatus?.model || 'YOLOv8n'}</span>
               </div>
-              <div>
-                <p className="text-[10px] text-automotive-gray uppercase mb-1">Model Version</p>
-                <p className="font-mono text-sm text-automotive-blue mt-1">YOLOv8-Opt</p>
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>FPS</span>
+                <span className="font-mono text-automotive-white">{edgeStatus?.edge_status?.fps || edgeStatus?.fps || 0}</span>
+              </div>
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>Device</span>
+                <span className="font-mono text-automotive-white">{edgeStatus?.edge_status?.device || edgeStatus?.device || 'CPU'}</span>
+              </div>
+              <div className="flex justify-between text-xs uppercase tracking-wider">
+                <span>Deployment</span>
+                <span className="font-mono text-automotive-green">{edgeStatus?.edge_status?.deployment || edgeStatus?.deployment || 'EDGE READY'}</span>
               </div>
             </div>
           </BaseCard>
