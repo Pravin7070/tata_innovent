@@ -6,8 +6,11 @@ import os
 import json
 from typing import Dict, Any, Optional
 
-# Add current directory to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+if __name__ == '__main__':
+    # Only modify sys.path when running ai-engine directly as a script.
+    module_dir = os.path.dirname(os.path.abspath(__file__))
+    if module_dir not in sys.path:
+        sys.path.insert(0, module_dir)
 
 from inference.inference_pipeline import InferencePipeline
 from utilities.json_builder import JSONBuilder
