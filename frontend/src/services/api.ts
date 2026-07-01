@@ -50,3 +50,36 @@ export const VideoService = {
     return response.data;
   }
 };
+
+export const MapService = {
+  calculateRoute: async (start: string, destination: string) => {
+    const response = await api.post('/map/route', { start, destination });
+    return response.data;
+  }
+};
+
+export const SimulationService = {
+  start: async () => {
+    const response = await api.post('/simulation/start');
+    return response.data;
+  },
+  stop: async () => {
+    const response = await api.post('/simulation/stop');
+    return response.data;
+  },
+  reset: async () => {
+    const response = await api.post('/simulation/reset');
+    return response.data;
+  }
+};
+
+export const SettingsService = {
+  resetSystem: async () => {
+    const response = await api.post('/settings/reset');
+    return response.data;
+  },
+  runDiagnostics: async () => {
+    const response = await api.post('/settings/diagnostics');
+    return response.data;
+  }
+};

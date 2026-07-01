@@ -44,7 +44,7 @@ export const Detection = () => {
               if (latest && latest.video_analysis) {
                 setMetrics(latest.video_analysis);
                 // Group terrains for display
-                const counts = latest.video_analysis.Statistics?.TerrainDetectionCounts || {};
+                const counts = latest.video_analysis.mission_summary?.Statistics?.TerrainDetectionCounts || {};
                 const mappedDets = Object.keys(counts).map(key => ({
                   obj: key,
                   count: counts[key],
@@ -136,7 +136,7 @@ export const Detection = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-[10px] text-automotive-gray uppercase mb-1">Total Frames</p>
-                <p className="font-mono text-xl text-automotive-white">{metrics ? metrics.TotalFrames : '--'}</p>
+                <p className="font-mono text-xl text-automotive-white">{metrics ? metrics.total_frames : '--'}</p>
               </div>
               <div>
                 <p className="text-[10px] text-automotive-gray uppercase mb-1">FPS</p>
@@ -145,7 +145,7 @@ export const Detection = () => {
               <div>
                 <p className="text-[10px] text-automotive-gray uppercase mb-1">Avg Severity</p>
                 <p className="font-mono text-sm text-automotive-white mt-1">
-                  {metrics?.Statistics ? metrics.Statistics.OverallAverageSeverity.toFixed(2) : '--'}
+                  {metrics?.mission_summary?.Statistics ? metrics.mission_summary.Statistics.OverallAverageSeverity.toFixed(2) : '--'}
                 </p>
               </div>
               <div>
